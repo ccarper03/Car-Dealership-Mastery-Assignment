@@ -1,0 +1,200 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    align-content: center;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 200px;
+}
+
+/*Home Page Specials Carousel*/
+
+.carousel, .item, .active, img {
+    height: 400px;
+    width: 800px;
+    display: block;
+    margin: 0 auto;
+}
+
+.carousel-inner {
+    height: 400px;
+}
+
+.specialsLink {
+    height: 40px;
+    font-size: x-large;
+}
+
+    .specialsLink:link {
+        color: white;
+    }
+
+    .specialsLink:visited {
+        color: white;
+    }
+
+    .specialsLink:hover {
+        color: gray;
+    }
+
+.featuredCarDiv {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    border-style: solid;
+    border-color: black;
+    margin-top: 10px;
+}
+
+.featuredCarDetails {
+    display: block;
+    text-align: center;
+    font-family: Impact;
+}
+
+.resize {
+    width: 150px;
+    display: flex;
+    height: auto;
+    vertical-align: middle;
+}
+
+/*Vehicle Search Form*/
+
+#carSearchTermLabel {
+    width: 200px;
+    height: auto;
+    float: left;
+    margin: 0px 0px 0px 17px;
+}
+
+#carSearchTermInput {
+    width: 200px;
+    margin: 0px 0px 20px 17px;
+}
+
+form {
+    border-style: solid;
+}
+
+.form-actions {
+    margin: 0;
+    text-align: center;
+}
+
+.form-group {
+    padding: 0px;
+    margin: 0px;
+}
+
+.col-md-3 {
+    padding: 0px;
+    margin: 0px;
+}
+
+#searchVehicleButton {
+    width: 300px;
+}
+
+.col-md-1 {
+    padding: 0px;
+    margin: 0px;
+}
+
+.maxPriceSelectBox {
+    margin-right: 20px;
+}
+
+/*Search Results*/
+
+.vehicleResultsList {
+    list-style: none;
+}
+
+.vehicleResultsListRow {
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: bold;
+}
+
+/*Vehicle Details*/
+
+.vehicleDetails {
+    border-style: solid;
+    border-color: black;
+}
+
+.vehicleDescription {
+    font-size: medium;
+    font-weight: bold;
+}
+
+/*Vehicle Specials*/
+
+#dollarSign {
+    font-size: 60px;
+    text-align: right;
+}
+
+#specialDetails {
+    font-size: 16px;
+}
+
+/*Contact Form*/
+
+.guildCarsForm {
+    border-style: none;
+    padding: 0px 10px 50px 50px;
+}
+
+.guildCarsFormGroup {
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+/*Admin Pages*/
+
+.addVehicleLinkDiv {
+    margin-bottom: 10px;
+    font-size: medium;
+}
+
+#Makes {
+    width: 200px;
+    display: block;
+    height: 30px
+}
+
+.formDropDown {
+    width: 200px;
+    display: block;
+    height: 30px
+}
+
+/*Reports Controller*/
+
+#salesSearchTermLabel {
+    width: 200px;
+    height: auto;
+    float: left;
+    margin: 0px 0px 0px 17px;
+}

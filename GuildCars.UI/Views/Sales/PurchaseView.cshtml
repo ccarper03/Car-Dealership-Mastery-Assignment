@@ -1,0 +1,191 @@
+﻿@model GuildCars.UI.Models.Sales.PurchaseVehicleModel
+@{
+    ViewBag.Title = "Purchases";
+}
+
+<h2>Purchases</h2>
+
+<div class="container">
+    <div class="row vehicleDetails">
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    @Model.PurchaseViewModel.Car.ModelYear.Year @Model.PurchaseViewModel.Make  @Model.PurchaseViewModel.Model
+                </li>
+                <li class="vehicleResultsListRow">
+                    <img class="resize" src="@Model.PurchaseViewModel.Car.IMGFilePath" />
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    BodyStyle: @Model.PurchaseViewModel.BodyStyle
+                </li>
+                <li class="vehicleResultsListRow">
+                    Trans: @Model.PurchaseViewModel.Transmission
+                </li>
+                <li class="vehicleResultsListRow">
+                    Color: @Model.PurchaseViewModel.BodyColor
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    Interior: @Model.PurchaseViewModel.IntColor
+                </li>
+                <li class="vehicleResultsListRow">
+                    Mileage: @Model.PurchaseViewModel.Car.Mileage
+                </li>
+                <li class="vehicleResultsListRow">
+                    VIN #: @Model.PurchaseViewModel.Car.VIN
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    Sale Price: @Model.PurchaseViewModel.Car.SalePrice
+                </li>
+                <li class="vehicleResultsListRow">
+                    MSRP: @Model.PurchaseViewModel.Car.MSRP
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12 vehicleDescription text-center">
+                Description: @Model.PurchaseViewModel.Car.VehicleDetails <br>
+            </div>
+        </div>
+    </div>
+
+
+    @using (Html.BeginForm("Purchase", "Sales", FormMethod.Post, new { @id = "purchaseForm", @class = "guildcarsForm form-horzontal" }))
+    {
+        <div class="tableDiv">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(m => m.CarId)
+            @Html.Hidden("CarId", Model.PurchaseViewModel.Car.CarId)
+            @Html.HiddenFor(m => m.SalePrice)
+            @Html.Hidden("SalePrice", Model.PurchaseViewModel.Car.SalePrice)
+            @Html.HiddenFor(m => m.MSRP)
+            @Html.Hidden("MSRP", Model.PurchaseViewModel.Car.MSRP)
+
+            <table class="table-responsive table" style="border-collapse: collapse">
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label>Name: </label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Name)</span>
+                    </td>
+                    <td>
+                        <label>Phone: </label>
+                        @Html.TextBoxFor(m => m.Phone, new { @id = "Phone", @class = "form-control contact-group" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Phone)</span>
+                    </td>
+                </tr>
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label>Email: </label>
+                        @Html.TextBoxFor(m => m.Email, new { @id="Email", @class = "form-control contact-group", type = "Email" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+                    </td>
+                </tr>
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label>Street 1: </label>
+                        @Html.TextBoxFor(m => m.StreetOne, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.StreetOne)</span>
+                    </td>
+                    <td>
+                        <label>Street 2: </label>
+                        @Html.TextBoxFor(m => m.StreetTwo, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label>City: </label>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", type = "text" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.City)</span>
+                    </td>
+                    <td>
+                        <label>State: </label>
+                        @Html.DropDownListFor(m => m.State,
+                        new SelectList(Model.States, Model.State),
+                        new { style = "display: block; height: 30px;" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.State)</span>
+                    </td>
+                </tr>
+                <tr class="form-group guildCarsFormGroup" style="border-bottom: 1px solid black">
+                    <td colspan="2" style="padding-bottom: 20px">
+                        <label>Zip Code: </label>
+                        @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control", @maxlength = 5 })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.ZipCode)</span>
+                    </td>
+                <tr>
+
+                <tr class="form-group guildCarsFormGroup">
+                    <td style="padding-top: 20px">
+                        <label>Purchase Price: </label>
+                        @Html.TextBoxFor(m => m.InputPurchasePrice, new { @class = "form-control", type = "text" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.PurchasePrice)</span>
+                    </td>
+                    <td style="padding-top: 20px">
+                        <label>Purchase Type: </label>
+                        @Html.DropDownListFor(m => m.PurchaseType,
+                        new SelectList(Model.PurchaseTypes, Model.PurchaseType),
+                        new { style = "display: block; height: 30px; width 100px" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.PurchaseType)</span>
+                    </td>
+                </tr>
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <button type="submit" class="btn btn-primary guildCarsFormGroup">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+     }
+    @section scripts
+{
+        <script>
+        $(document).ready(function () {
+            $('#purchaseForm').validate({
+                rules: {
+                    'Name': {
+                        required: true,
+                    },
+                    'Email': {
+                        required: function (element) {
+                            return (!$("#Phone").hasClass('valid'));
+                    },
+                    'Phone': {
+                        required: function (element) {
+                            return (!$("#Email").hasClass('valid'));
+                    },
+                    'StreetOne': {
+                        required: true,
+                    },
+                    'City': {
+                        required: true,
+                    },
+                    'ZipCode': {
+                        required: true,
+                        number: true,
+                    },
+                    'State': {
+                        required: true,
+                    },
+                    'InputPurchasePrice': {
+                        required: true,
+                    },
+                    'PurchaseType': {
+                        required: true,
+                    },
+                }
+            });
+        });
+        </script>
+    }
+</div>

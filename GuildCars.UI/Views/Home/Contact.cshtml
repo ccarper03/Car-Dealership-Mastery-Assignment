@@ -1,0 +1,69 @@
+﻿@model GuildCars.UI.Models.ContactRequestModel
+
+@{
+    ViewBag.Title = "Contact";
+}
+<div class="container">
+    <div class="row">
+        <h2>Contact</h2>
+        <div class="row contactFormDiv">
+            <div class="col-md-6">
+                @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @id = "contactForm", @class = "guildCarsForm" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="form-group guildCarsFormGroup">
+                        <label>Name: </label>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Name)</span>
+                    </div>
+                    <div class="form-group guildCarsFormGroup">
+                        <label>Email: </label>
+                        @Html.TextBoxFor(m => m.Email, new { @id = "email", @class = "form-control contact-group", type = "email" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+                    </div>
+                    <div class="form-group guildCarsFormGroup">
+                        <label>Phone: </label>
+                        @Html.TextBoxFor(m => m.Phone, new { @id = "tel", @class = "form-control contact-group", type = "tel" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Phone)</span>
+                    </div>
+                    <div class="form-group guildCarsFormGroup">
+                        <label>Message: </label>
+                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", type = "text", @style = "width:400px; Max-Width:60%;", rows = 8 })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Message)</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary guildCarsFormGroup">Submit</button>
+                }
+            </div>
+            <div class="col-md-6" id="GoogleMap">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d12690.660209442745!2d-76.5304618412109!3d37.326761010848095!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1509413768151" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <p style="text-align:left"><strong>123 George Washington Memorial Highway</strong> </p>
+                <p style="text-align:left"><strong>Virginia 23072</strong> </p>
+                <p style="text-align:left"><strong>642-5555</strong></p>
+            </div>
+        </div>
+    </div>
+
+    @section scripts
+{
+        <script>
+            $(document).ready(function () {
+                $('#contactForm').validate({
+                    rules: {
+                        'Name': {
+                            required: true,
+                        },
+                        email: {
+                            require_from_group: [1, ".contact-group"]
+                        },
+                        tel: {
+                            require_from_group: [1, ".contact-group"]
+                        },
+                        'Message': {
+                            required: true
+                        }
+                    }
+                });
+            });
+        </script>
+    }
+</div>

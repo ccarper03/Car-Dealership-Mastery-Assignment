@@ -1,0 +1,21 @@
+﻿@model GuildCars.UI.Models.SpecialsViewModel
+
+@{
+    ViewBag.Title = "Specials";
+}
+
+<h2>Specials</h2>
+
+@{ 
+    foreach (var special in Model.Specials)
+    {
+        <div class="row">
+            <div class="col-md-1 text-right" id="dollarSign">$</div>
+                <div class="col-md-11" id="specialsDescription">
+                    <h4>@special.Title</h4>
+                    <p id="specialDetails">@special.SpecialDetails</p>
+                </div>
+        </div>
+    }
+}
+

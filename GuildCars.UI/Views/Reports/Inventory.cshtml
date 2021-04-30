@@ -1,0 +1,61 @@
+﻿@model GuildCars.UI.Models.Reports.InventoryReportViewModel
+@{
+    ViewBag.Title = "Inventory";
+}
+
+<h2>Inventory Report</h2>
+
+<div class="container">
+    <div class="row">
+        <h4>New Inventory</h4>
+        <div id="newCarInventoryTableDiv">
+            <table class="table table-striped table-responsive" style="max-width:50%">
+                <tr>
+                    <th>Year</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Count</th>
+                    <th>Stock Value</th>
+                </tr>
+                @{
+                    foreach (var m in Model.NewCarsReports)
+                    {
+                        <tr>
+                            <td>@m.Year.Year</td>
+                            <td>@m.Make</td>
+                            <td>@m.Model</td>
+                            <td>@m.UnitsInStock</td>
+                            <td>$@m.StockValue</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <h4>Used Inventory</h4>
+        <div id="usedCarInventoryTableDiv">
+            <table class="table table-striped table-responsive" style="max-width:50%">
+                <tr>
+                    <th>Year</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Count</th>
+                    <th>Stock Value</th>
+                </tr>
+                @{
+                    foreach (var m in Model.UsedCarsReports)
+                    {
+                        <tr>
+                            <td>@m.Year.Year</td>
+                            <td>@m.Make</td>
+                            <td>@m.Model</td>
+                            <td>@m.UnitsInStock</td>
+                            <td>$@m.StockValue</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</div>

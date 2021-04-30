@@ -1,0 +1,40 @@
+﻿@model GuildCars.UI.Models.Admin.UserIndexPageViewModel
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+@Html.ActionLink("Add A User", "AddUser")
+
+<div class="row">
+    <div class="userTableContainer col-md-12">
+        @if (TempData["Success"] != null)
+        {
+            <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+        }
+        <table class="table-striped table-responsive" style="width:100%">
+            <tbody>
+                <tr>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+                @{
+                    foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.LastName</td>
+                            <td>@user.FirstName</td>
+                            <td>@user.Email</td>
+                            <td>@user.UserRole</td>
+                            <td>@Html.ActionLink("Edit", "EditUser", "Admin", new { @id = user.Id }, null)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

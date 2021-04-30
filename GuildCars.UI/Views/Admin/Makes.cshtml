@@ -1,0 +1,63 @@
+﻿@model GuildCars.UI.Models.Admin.AddMakeViewModel
+@{
+    ViewBag.Title = "Makes";
+}
+
+<h2>Makes</h2>
+
+<div class="container">
+    <div class="addMakeFormDiv row">
+        @using (Html.BeginForm("Makes", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "AddMakeForm", @class = "contactForm form-horizontal" }))
+        {
+            <table class="table-responsive table" style="border-collapse: collapse">
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label>New Make: </label>
+                        @Html.TextBoxFor(m => m.Make, new { @id = "Makes", @style = "width:200px; height: 30px; display:inline" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Make)</span>
+                        <button type="submit" style="margin-bottom:20px;" class="btn btn-primary guildCarsFormGroup">Save</button>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+    @if (TempData["Success"] != null)
+            {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    <div class="row">
+        <table class="table-striped table-responsive table">
+            <tr class="form-group guildCarsFormGroup">
+                <th>Make</th>
+                <th>Date Added</th>
+                <th>User</th>
+            </tr>
+            @{
+                foreach (var make in Model.Makes)
+                {
+                    <tr class="form-group guildCarsFormGroup">
+                        <td>@make.MakeName</td>
+                        <td>@make.DateAdded.Date.ToShortDateString()</td>
+                        <td>@make.AddedBy</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    @section scripts
+{
+        <script>
+            $(document).ready(function () {
+
+                $('#AddMakeForm').validate({
+                    rules: {
+                        'Make': {
+                            required: true
+                        },
+                    }
+                });
+            });
+        </script>
+    }
+
+</div>

@@ -1,0 +1,119 @@
+﻿@model GuildCars.UI.Models.IndexPageViewModel
+
+@{
+    ViewBag.Title = "Guild Cars";
+}
+
+<div class="container">
+    <!-- Carousel
+        ================================================== -->
+    <div id="specialsCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        @{
+            var iterations = 0;
+            var activeSlide = iterations == 0 ? "active" : "";
+            var specials = Model.Specials.ToList();
+
+            <ol class="carousel-indicators">
+                @foreach (var special in specials)
+                {
+                    <li data-target="#specialsCarousel" data-slide-to="@iterations" class="@activeSlide"></li>
+                    iterations++;
+                }
+            </ol>
+        }
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @{
+                var list = Model.Specials.ToList();
+                iterations = 0;
+                foreach (var special in list)
+                {
+                    var active = iterations == 0 ? "active" : "";
+                    <div class="item @active">
+                        <img src="\Images\black.JPG" height="200">
+                        <span class="carousel-caption">
+                            <a href="Home\Specials\" class="specialsLink">@special.Title</a><br />
+                            <span class="lead"><a href="Home\Specials\" class="specialsLink">@special.SpecialDetails</a></span>
+                        </span>
+                    </div>
+                    iterations++;
+                }
+            }
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#specialsCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#specialsCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <!-- /.carousel -->
+
+    <div class="row">
+        @{
+            var colCounter = 1;
+            var featuredCars = Model.FeaturedCars.ToList();
+            var carCount = featuredCars.Count();
+            var colWidth = 0;
+
+            if (carCount < 4)
+            {
+                if (carCount == 3)
+                {
+                    colWidth = 4;
+                }
+                else if
+                 (carCount == 2)
+                {
+                    colWidth = 6;
+                }
+                else
+                {
+                    colWidth = 12;
+                }
+            }
+            else
+            {
+                colWidth = 3;
+            }
+
+            foreach (var car in featuredCars)
+            {
+                if (colCounter % 4 == 0)
+                {
+                    <div class="row">
+                        <div class="col-md-@colWidth">
+                            <div class="featuredCarDiv">
+                                <a href=@Url.Action("Details", "Home", new { id = car.CarId })>
+                                <img class="resize" src="@car.ImageURL" />
+                                <div class="featuredCarDetails">@car.Year.Year @car.Make @car.Model</div>
+                                <div class="featuredCarDetails">$@car.Price</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-@colWidth">
+                        <div class="featuredCarDiv">
+                            <a href=@Url.Action("Details", "Home", new { id = car.CarId })>
+                            <img class="resize" src="@car.ImageURL" />
+                            <div class="featuredCarDetails">@car.Year.Year @car.Make @car.Model</div>
+                            <div class="featuredCarDetails">$@car.Price</div>
+                            </a>
+                        </div>
+                    </div>
+                }
+                colCounter++;
+            }
+        }
+    </div>
+</div>
+

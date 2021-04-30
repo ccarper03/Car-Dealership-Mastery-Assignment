@@ -1,0 +1,13 @@
+﻿@model GuildCars.UI.Models.Sales.PurchaseVehicleModel
+
+@{
+    ViewBag.Title = "PurchaseLogConfirmation";
+}
+
+<h2>Purchase has been logged</h2>
+
+<p>
+    Purchase has been logged for @Model.Name by @User.Identity.Name !
+    @Html.ActionLink("Return to Sales Home Page", "Index")
+</p>
+

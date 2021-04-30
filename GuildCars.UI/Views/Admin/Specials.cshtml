@@ -1,0 +1,70 @@
+﻿@model GuildCars.UI.Models.Admin.SpecialViewModel
+
+@{
+    ViewBag.Title = "Specials";
+}
+
+<h2>Specials</h2>
+
+<div class="container">
+    <div class="addSpecialFormDiv row">
+        @using (Html.BeginForm("Specials", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "AddSpecialForm", @class = "contactForm form-horizontal" }))
+        {
+            <table class="table-responsive table" style="border-collapse: collapse">
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label style="margin:10px 0px 5px 53px" class="pull-left">Title: </label>
+                        @Html.TextBoxFor(m => m.Title, new {  @id = "Title", @style = " margin:10px 0px 5px 8px; width:300px; max-width:50%; height: 30px; display:inline-block" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Title)</span>
+                    </td>
+                </tr>
+                <tr class="form-group guildCarsFormGroup">
+                    <td>
+                        <label style="margin: 5px 5px 5px 10px" class="pull-left">Description:</label>
+                        @Html.TextAreaFor(m => m.Details, new { @rows = 8, @id = "Details", @style = " margin: 5px 0px 10px 10px; width:300px; max-width:50%; display:block" })
+                        <button type="submit" style="margin: 0px 0px 5px 95px;" class="btn btn-primary guildCarsFormGroup">Save</button>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+    @if (TempData["Success"] != null)
+            {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    @{
+        foreach (var special in Model.Specials)
+        {
+            <div class="row">
+                <div class="col-md-1 text-right" id="dollarSign">$</div>
+                <div class="col-md-6" id="specialsDescription">
+                    <h4>@special.Title</h4>
+                    <p id="specialDetails">@special.SpecialDetails</p>
+                </div>
+                <div class="col-md-2 pull-left">
+                    <button type="submit" class="btn btn-danger btn-lg guildCarsFormGroup" onclick="deleteSpecial(@special.SpecialId)">Delete</button>
+                </div>
+            </div>
+        }
+    }
+
+    @section scripts
+{
+        <script>
+            $(document).ready(function () {
+
+                $('#AddSpecialForm').validate({
+                    rules: {
+                        'Title': {
+                            required: true
+                        },
+                        'Details': {
+                            required: true
+                        },
+                    }
+                });
+            });
+        </script>
+    }
+</div>
+

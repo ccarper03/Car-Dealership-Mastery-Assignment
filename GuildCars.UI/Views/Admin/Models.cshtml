@@ -1,0 +1,67 @@
+﻿@model GuildCars.UI.Models.Admin.AddModelViewModel
+@{
+    ViewBag.Title = "Models";
+}
+
+<h2>Models</h2>
+
+<div class="container">
+    <div class="addMakeFormDiv row">
+        @using (Html.BeginForm("Models", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "AddModelForm", @class = "contactForm form-horizontal" }))
+        {
+            @*@Html.HiddenFor(m => m.MakeId, new { @id = "MakeId" })*@
+            <table class="table-responsive table" style="border-collapse: collapse">
+                <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                    <td>
+                        <label>New Model: </label>
+                        @Html.TextBoxFor(m => m.Model, new { @id = "Model", @style = "width:200px; height: 30px; display:inline" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Model)</span>
+                        <label>Make: </label>
+                        @Html.DropDownListFor(m => m.MakeId, new SelectList(Model.Makes, "MakeId", "MakeName"), new { @id = "Makes", @style = "width:200px; height: 30px; display:inline" })
+                        <button type="submit" style="margin-bottom:20px;" class="btn btn-primary guildCarsFormGroup" @*onclick="setMakeId()"*@>Save</button>
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+    @if (TempData["Success"] != null)
+            {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    <div class="row">
+        <table class="table-striped table-responsive table">
+            <tr class="form-group guildCarsFormGroup">
+                <th>Make</th>
+                <th>Model</th>
+                <th>Date Added</th>
+                <th>User</th>
+            </tr>
+            @{
+                foreach (var m in Model.Models)
+                {
+                    <tr class="form-group guildCarsFormGroup">
+                        <td>@Model.Makes.First(mod => mod.MakeId == @m.MakeId.ToString()).MakeName</td>
+                        <td>@m.ModelName</td>
+                        <td>@m.DateAdded.Date.ToShortDateString()</td>
+                        <td>@m.Addedby</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    @section scripts
+{
+        <script>
+            $(document).ready(function () {
+
+                $('#AddModelForm').validate({
+                    rules: {
+                        'Model': {
+                            required: true
+                        },
+                    }
+                });
+            });
+        </script>
+    }
+</div>

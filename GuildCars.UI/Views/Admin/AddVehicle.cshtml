@@ -1,0 +1,164 @@
+﻿@model GuildCars.UI.Models.AddVehicleViewModel
+@{
+    ViewBag.Title = "AddVehicle";
+}
+
+
+<div class="tableDiv">
+    <h2>Add Vehicle</h2>
+    @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "AddVehicleForm", @class = "contactForm form-horzontal" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m => m.AdminFormModel.MakeId, new { @id = "MakeId" })
+        @Html.HiddenFor(m => m.AdminFormModel.ModelId, new { @id = "ModelId" })
+        @Html.HiddenFor(m => m.AdminFormModel.BodyStyleId, new { @id = "BodyStyleId" })
+        @Html.HiddenFor(m => m.AdminFormModel.TransmissionId, new { @id = "TransmissionId" })
+        @Html.HiddenFor(m => m.AdminFormModel.InteriorColorId, new { @id = "IntColorId" })
+        @Html.HiddenFor(m => m.AdminFormModel.BodyColorId, new { @id = "BodyColorId" })
+
+        <table class="table-responsive table" style="border-collapse: collapse">
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <label>Make: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.MakeId, new SelectList(Model.Makes, "MakeId", "MakeName"), "Select Make", new { @id = "Makes", @style = "width:200px; display: block; height: 30px;", @onchange = "javascript:getModels(this.value);" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.MakeId)</span>
+                </td>
+
+                <td>
+                    <label>Model: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.ModelId, new SelectList(Model.Models, "ModelId", "ModelName"), "Select Make First", new { @id = "Models", @style = "width:200px; display: block; height: 30px;" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.ModelId)</span>
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <label>Type: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.Type, new SelectList(Model.Types), new { @id = "VehicleType", @style = "width:200px; display: block; height: 30px;" })
+                </td>
+                <td>
+                    <label>BodyStyle: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.BodyStyleType, new SelectList(Model.BodyStyles, "BodyStyleId", "BodyStyleType"), new { @id = "BodyStyleType", @style = "width:200px; display: block; height: 30px;" })
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <label>Year: </label>
+                    @Html.TextBoxFor(m => m.AdminFormModel.Year, new { @class = "form-control", @maxlength = 4 })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.Year)</span>
+                </td>
+                <td>
+                    <label>Transmission: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.TransmissionType, new SelectList(Model.Tranmissions, "TransmissionId", "TransmissionType"), new { @id = "TransmissionType", @style = "width:200px; display: block; height: 30px;" })
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <label>Color: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.Color, new SelectList(Model.Colors, "ColorId", "ColorName"), new { @id = "BodyColor", @style = "width:200px; display: block; height: 30px;" })
+                </td>
+                <td>
+                    <label>Interi Color: </label>
+                    @Html.DropDownListFor(m => m.AdminFormModel.Interior, new SelectList(Model.Colors, "ColorId", "ColorName"), new { @id = "InteriorColor", @style = "width:200px; display: block; height: 30px;" })
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <label>Mileage: </label>
+                    @Html.TextBoxFor(m => m.AdminFormModel.Mileage, new { @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.Mileage)</span>
+                </td>
+                <td>
+                    <label>VIN #: </label>
+                    @Html.TextBoxFor(m => m.AdminFormModel.VIN, new { @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.VIN)</span>
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <label>MSRP: </label>
+                    @Html.TextBoxFor(m => m.AdminFormModel.MSRPInput, new { @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.MSRPInput)</span>
+                </td>
+                <td>
+                    <label>Sale Price: </label>
+                    @Html.TextBoxFor(m => m.AdminFormModel.SalePriceInput, new { @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.SalePriceInput)</span>
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden; width: 100%">
+                <td colspan=2>
+                    <label>Description: </label>
+                    @Html.TextAreaFor(m => m.AdminFormModel.Description, new { rows = 8, @style = "width:100%; max-width:69.5%; display: block" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.Description)</span>
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden; width: 100%">
+                <td colspan=2>
+                    <label>Image</label>
+                    @Html.TextBoxFor(m => m.AdminFormModel.Picture, new { type = "file", @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.AdminFormModel.Picture)</span>
+                </td>
+            </tr>
+            <tr class="form-group guildCarsFormGroup" style="border: hidden">
+                <td>
+                    <button type="submit" class="btn btn-primary guildCarsFormGroup" onclick="setCarIds()">Submit</button>
+                </td>
+            </tr>
+        </table>
+    }
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#AddVehicleForm').validate({
+                rules: {
+                    'AdminFormModel.Make': {
+                        required: true
+                    },
+                    'AdminFormModel.Model': {
+                        required: true
+                    },
+                    'VehicleType': {
+                        required: true,
+                    },
+                    'BodyStyleType': {
+                        required: true,
+                    },
+                    'TransmissionType': {
+                        required: true,
+                    },
+                    'AdminFormModel.Year': {
+                        required: true,
+                        number: true,
+                        min: 2000,
+                    },
+                    'AdminFormModel.Mileage': {
+                        required: true,
+                        number: true,
+                    },
+                    'AdminFormModel.VIN': {
+                        required: true,
+                    },
+                    'InteriorColor': {
+                        required: true,
+                    },
+                    'BodyColor': {
+                        required: true,
+                    },
+                    'AdminFormModel.MSRPInput': {
+                        required: true,
+                    },
+                    'AdminFormModel.SalePriceInput': {
+                        required: true,
+                    },
+                    'AdminFormModel.Picture': {
+                        required: true
+                    }
+                }
+            });
+        });
+    </script>
+}
+

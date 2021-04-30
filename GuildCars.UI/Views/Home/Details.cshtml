@@ -1,0 +1,73 @@
+﻿@model GuildCars.UI.Models.DetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Vehicle Details</h2>
+
+<div class="container">
+    <div class="row">
+       <div class="col-md-3">
+           <ul class="vehicleResultsList">
+               <li class="vehicleResultsListRow">
+                   @Model.Car.ModelYear.Year @Model.Make  @Model.Model
+               </li>
+               <li class="vehicleResultsListRow">
+                  <img class="resize" src="@Model.Car.IMGFilePath" />
+               </li>
+           </ul>
+       </div>
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    BodyStyle: @Model.BodyStyle
+                </li>
+                <li class="vehicleResultsListRow">
+                    Trans: @Model.Transmission
+                </li>
+                <li class="vehicleResultsListRow">
+                    Color: @Model.BodyColor
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    Interior: @Model.IntColor
+                </li>
+                <li class="vehicleResultsListRow">
+                    Mileage: @Model.Car.Mileage
+                </li>
+                <li class="vehicleResultsListRow">
+                    VIN #: @Model.Car.VIN
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="vehicleResultsList">
+                <li class="vehicleResultsListRow">
+                    Sale Price: @Model.Car.SalePrice
+                </li>
+                <li class="vehicleResultsListRow">
+                    MSRP: @Model.Car.MSRP
+                </li>
+           </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 vehicleDescription text-center">Description: @Model.Car.VehicleDetails <br>
+        @{ 
+            if (Model.Car.IsSold)
+            {
+                <button type="button" id="vehicleDetailsContactButton" class="btn btn-default pull-right disabled">Unavailable-Sold</button>
+            }
+            else
+            {
+                <button type="button" id="vehicleDetailsContactButton" class="btn btn-default pull-right" onclick="location.href='@Url.Action("Contact", "Home", new { Id = Model.Car.VIN })'">Contact Us</button>
+            }
+        }
+        </div>
+    </div>
+</div>
+
